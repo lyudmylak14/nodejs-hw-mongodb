@@ -5,6 +5,7 @@ import {
   deleteContact,
 } from '../services/contacts.js';
 import createHttpError from 'http-errors';
+import { updateContact } from '../services/contacts.js';
 
 export const getContactsController = async (req, res) => {
   const contacts = await getAllContacts();
@@ -16,7 +17,7 @@ export const getContactsController = async (req, res) => {
   });
 };
 
-export const getContactsByIdController = async (req, res) => {
+export const getContactByIdController = async (req, res) => {
   const { contactId } = req.params;
   const contact = await getContactByID(contactId);
 
@@ -41,9 +42,26 @@ export const createContactController = async (req, res) => {
   });
 };
 
+export const patchContactController = async (req, res, next) => {
+  const {contactId} = req.params;
+  const { body } = req;
+
+  const contact = await updateContact(contactId, body);
+
+  if (!contact) {
+    return next (createHttpError(404, 'Contact not found'));
+  }
+
+  res.json({
+    status: 200,
+    message: 'Successfully patched a contact!',
+    data: contact,
+  });
+};
+
 export const deleteContactController = async (req, res, next) => {
   const { contactId } = req.params;
-  const contact= await deleteContact(contactId);
+  const contact = await deleteContact(contactId);
 
   if (!contact) {
     next(createHttpError(404, 'Contact not found'));
