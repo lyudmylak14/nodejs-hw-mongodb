@@ -28,7 +28,7 @@ export const setupServer = () => {
     });
   });
 
-  app.use(contactsRouter);
+  app.use('/products', contactsRouter);
   app.use('*', notFoundHandler);
   app.use(errorHandler);
 
