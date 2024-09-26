@@ -27,24 +27,6 @@ export const createContactSchema = Joi.object({
     }),
 });
 
-// const dataToValidate = {
-//     name: 'Lyudmyla',
-//     phoneNumber: '1234567890',
-//     email: 'john.doe@example.com',
-//     isFavourite: true,
-//     contactType: 'work',
-//   };
-
-//   const validationResult = createContactSchema.validate(dataToValidate, {
-//     abortEarly: false,
-//   });
-
-//   if (validationResult.error) {
-//     console.error(validationResult.error.details);
-//   } else {
-//     console.log('Data is valid!');
-//   };
-
 export const updateContactSchema = Joi.object({
   name: Joi.string().min(3).max(20).optional().messages({
     'string.base': 'Name should be a string',
