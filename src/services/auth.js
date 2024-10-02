@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt';
-import { UsersCollection } from '../db/models/user.js';
+import crypto from 'node:crypto';
 import createHttpError from 'http-errors';
+import { UsersCollection } from '../db/models/user.js';
+import { SessionCollection } from '../db/models/session.js';
+import { FIFTEEN_MINUTES, THIRTY_DAYS } from '../constants/index.js';
 
 export const registerUser = async (userData) => {
   const user = await UsersCollection.findOne({ email: userData.email });
@@ -25,4 +28,17 @@ export const loginUser = async (userData) => {
   if (!isEqual) {
     throw createHttpError(401, 'Unauthorized');
   }
+
+  await SessionCollection.deleteOne({ userId: user._id });
+
+  const accessToken = crypto.randomBytes(30).toString('base64');
+  const refreshToken = crypto.randomBytes(30).toString('base64');
+
+  return await SessionCollection.create({
+    userId: user._id,
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    refreshTokenValidUntil: new Date(Date.now() + THIRTY_DAYS),
+  });
 };
