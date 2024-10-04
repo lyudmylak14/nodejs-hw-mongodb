@@ -8,6 +8,8 @@ import {
   refreshUserSessionController,
   registerUserController,
 } from '../controllers/auth.js';
+import { authenticate } from '../middlewares/authenticate.js';
+import { getContactsController } from '../controllers/contacts.js';
 
 const authRouter = Router();
 
@@ -26,5 +28,9 @@ authRouter.post(
 authRouter.post('/logout', ctrlWrapper(logoutUserController));
 
 authRouter.post('/refresh', ctrlWrapper(refreshUserSessionController));
+
+authRouter.use(authenticate);
+
+authRouter.get('/', ctrlWrapper(getContactsController));
 
 export default authRouter;
