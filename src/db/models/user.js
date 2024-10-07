@@ -6,7 +6,7 @@ const userSchema = new Schema(
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
   },
-  { timestamps: true, versionKey: false },
+  { versionKey: false },
 );
 
 userSchema.methods.toJSON = function () {
@@ -15,4 +15,4 @@ userSchema.methods.toJSON = function () {
   return obj;
 };
 
-export const UsersCollection = model('users', userSchema);
+export const UsersCollection = model('user', userSchema);
