@@ -2,6 +2,8 @@ import createHttpError from 'http-errors';
 import { ContactsCollection } from '../db/models/Contact.js';
 
 export const checkContactOwner = async (req, res, next) => {
+  console.log(req);
+
   const { contactId } = req.params;
   const contact = await ContactsCollection.findById(contactId);
 
