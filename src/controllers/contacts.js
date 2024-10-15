@@ -80,6 +80,8 @@ export const patchContactController = async (req, res, next) => {
     photo: photoUrl,
   }, req.contact.userId);
 
+  console.log('Update result:', result);
+
   if (!result) {
     next(createHttpError(404, 'Contact not found or access denied'));
     return;
@@ -88,7 +90,7 @@ export const patchContactController = async (req, res, next) => {
   res.json({
     status: 200,
     message: 'Successfully patched a contact!',
-    data: result.contact,
+    data: result,
   });
 };
 
