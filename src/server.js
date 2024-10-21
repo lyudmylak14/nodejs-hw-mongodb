@@ -26,11 +26,11 @@ export const setupServer = () => {
     }),
   );
 
-  // app.get('/', (req, res) => {
-  //   res.json({
-  //     message: 'Welcome to home page!',
-  //   });
-  // });
+  app.get('/', (req, res) => {
+    res.json({
+      message: 'Welcome to home page!',
+    });
+  });
 
   app.use(router);
   app.use('/uploads', express.static(UPLOAD_DIR));
