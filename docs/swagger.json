@@ -175,7 +175,6 @@
                 "required": [
                   "name",
                   "phoneNumber",
-                  "email",
                   "contactType"
                 ],
                 "properties": {
@@ -193,6 +192,11 @@
                     "description": "Contact's email",
                     "type": "string",
                     "example": "john_doe@example.com"
+                  },
+                  "isFavourite": {
+                    "description": "This contact is favourite",
+                    "type": "boolean",
+                    "example": true
                   },
                   "contactType": {
                     "description": "Type of contact",
