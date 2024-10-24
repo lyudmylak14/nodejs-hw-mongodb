@@ -16,7 +16,7 @@ export const createContactSchema = Joi.object({
   email: Joi.string().email().messages({
     'string.email': 'Email must be a valid email address',
   }),
-  isFavourite: Joi.boolean(),
+  isFavourite: Joi.boolean().truthy('true').falsy('false'),
   contactType: Joi.string()
     .valid('work', 'home', 'personal')
     .required()
@@ -41,7 +41,7 @@ export const updateContactSchema = Joi.object({
   email: Joi.string().email().messages({
     'string.email': 'Email must be a valid email address',
   }),
-  isFavourite: Joi.boolean(),
+  isFavourite: Joi.boolean().truthy('true').falsy('false'),
   contactType: Joi.string()
     .valid('work', 'home', 'personal')
     .messages({
